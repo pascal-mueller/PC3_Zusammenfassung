@@ -1,0 +1,371 @@
+% !TEX options=--shell-escape
+\title{Zusammenfassung - PC3}
+\author{
+        Pascal Müller [pamuelle@student.ethz.ch]
+}
+\date{\today}
+
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[parfill]{parskip}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{physics}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+\usepackage{fourier}
+\usepackage{graphicx}
+\graphicspath{ {./img/} }
+
+\definecolor{bkg_light}{HTML}{d0ddf2}
+\definecolor{bkg_dark}{HTML}{717ebf}
+
+\newcommand{\mysection}[1]{
+    \setlength\fboxsep{4pt} %% spacing around box contents
+    \section*{\colorbox{bkg_dark}{\makebox[0.47\textwidth]{\color{white}#1}}}
+}
+
+\newcommand{\mysubsection}[1]{
+    \setlength\fboxsep{4pt} %% spacing around box contents
+    \subsection*{\colorbox{bkg_light}{\makebox[0.47\textwidth]{\color{black}#1}}}
+}
+
+%\usepackage[outputdir=/home/pascal/.config/sublime-text-3/Cache]{minted}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{STATUS}
+
+Fertige Serien: 1, 2, 3, 4, 5, 6
+
+\paragraph{TODO:}
+\begin{itemize}
+  \item Add klassische Newton gesetzte?
+  \item S5A2 (Spin Zeug)
+  \item S6A1 (Gram Schmidt)
+  \item S7A1 - Molekülschwingung
+\end{itemize}
+
+\newpage
+
+\begin{multicols*}{2}
+\mysection{Definitionen}
+\mysubsection{Symbole:}
+\begin{itemize}
+  \item $\ket{\Psi}$ Zustandsvektor \\ $\Rightarrow$ Beschreibt ein System
+  \item $\hat{O}$ Quantenoperator \\ $\Rightarrow$ Physk. Messbare Grösse
+  \item $\hat{O}\ket{o_{spec}} = o_{spec}\ket{o_{spec}}$ \\ $\Rightarrow$ Wert
+    den wir bei Messung eines Experiments bekommen würden.
+  \item $\ket{\Psi} = \sum_i a_i\ket{o_i}$ \\
+    $a_i$: Wahrsch. Amplitude \\
+    $|a_i|^2$ Wahrsch. $o_i$ zu messen
+  \item $\bra{\Psi}$ \\ $\Rightarrow$ Konjugierter Zustandsvektor
+\end{itemize}
+
+\mysubsection{Fermion:} (symm. Eigenfunktionen) \\
+Spin = $0, 1, 2, \dots$
+
+\mysubsection{Boson:} (antisymm. Eigenfunktionen) \\
+Spin = $1/2, 3/2, 5/2, \dots$
+
+\mysubsection{Observable:} (Physik. messbare Grössen). \\
+Beschrieben durch Operatoren (Matrizen sind Operatoren).
+
+\mysubsection{Kommutator:} $[\hat{A},\hat{B}] = \hat{A}\hat{B} - \hat{B}\hat{A}$
+\begin{itemize}
+  \item \warning Wende Testfunktion an beim Berechnen!
+  \item Falls $[\hat{A},\hat{B}] = 0 \ \ \Rightarrow \ \ $ gemeinsame Basis und somit
+gleichzeitig messbar.
+\end{itemize}
+
+\mysubsection{Orbital:} TODO
+
+\mysubsection{Quadratisch Integrierbar:} Eine Funktion $f(x)$ heiss Quad. Int. bar
+falls $\int_\infty^\infty f^{*}(x) f(x) dx < \infty$
+
+\mysubsection{Korrespondenzprinzip:} (Gleich für $x,y,z$) \\
+Position: $\hat{x} = x$ \\
+Impuls: $\hat{p}_x = -i\hbar\frac{\partial}{\partial x}$
+
+\mysubsection{Normierung} $\bra{\Psi}\ket{\Psi} = 1$
+
+\mysubsection{Matrixform} Der Operator $\hat{A}$ kann als Matrix dargestellt
+werden bezüglich einer Basis $\varphi_i$.
+
+\[
+  A_{nm} = \int_{\text{Raum}}\varphi_n^{*}\hat{A}\varphi_m dx 
+         = \bra{n}\hat{A}\ket{m}
+\]
+
+\mysubsection{Erwartungswert}: \\
+Normiert:
+\[
+  \bar{A} = \expval{\hat{A}} = \int \Psi^{*}\hat{A}\Psi d\tau
+\]
+
+Nicht-Normiert
+\[
+  \expval{\hat{A}}
+    = \frac{\int \Psi^{*}\hat{A}\Psi d\tau}{\int\Psi^{*}\Psi d\tau}
+\]
+
+\mysubsection{Zeitentwicklung von Erwartungswerten}
+Die Zeitentwicklung von $\expval{\hat{A}}$ eines zeitunabhängigen Operators
+$\hat{A}$ ist gegeben durch:
+
+\[
+  \frac{d\expval{\hat{A}}}{dt}
+  = \frac{i}{\hbar}\expval{\comm{\textcolor{red}{\hat{H}}}{\hat{A}}}
+\]
+
+\warning 
+$\expval{\hat{A}} = 0 \quad \Leftrightarrow \quad \comm{\hat{H}}{\hat{A}} = 0$
+
+\mysubsection{Hermitesche Polynome}
+
+TODO: Hinzufügen. Siehe Skript und S6 Tabelle 1.
+
+
+\mysection{Theorem von Ehrenfest} (S5A1, §3.15) \\
+Annahme: Teilchen der Masse $m$ bewegt sich in 1D Raum, dann
+
+\[
+  \hat{H} = \frac{\hat{p}_x^2}{2m} + V(x)
+\]
+
+wobei $V(x)$ beliebige Potentialfunktion. Dann:
+
+\[
+  \frac{d\expval{\hat{p}_x}}{dt} = - \expval{\frac{dV(x)}{dx}}
+\]
+
+\[
+  \frac{d\expval{x}}{dt} = \frac{1}{m}\expval{\hat{p}_x}
+\]
+
+\warning Entspricht klassischen Ergebnisen! (1. Newton Gesetzt)
+
+\paragraph{Bsp: Freies Teilchen} (S5A1.c) \\
+$\Psi_{+k} = A \exp{ikx}$ und $V(x) = 0$ und somit 
+
+\begin{align*}
+  \frac{d\expval{\hat{p}_x}}{dt} &= - \expval{\frac{dV(x)}{dx}} = 0
+  \rightarrow \expval{\hat{p}_x} \text{ist konstant}
+  \\
+  \frac{d\expval{x}}{dt} &= \frac{\hbar k}{m}
+\end{align*}
+
+\paragraph{Bsp: Teilchen im 1D Kasten} (S5A1.c) \\
+$\varphi_m(x) = \sqrt{\frac{2}{L}} \sin{\big(\frac{n\pi x}{L}\big)}$ mit
+$V(x) = 0$ für $0 < x < L$:
+
+Wir wissen $\expval{\hat{p_x}} = 0$ (Serie 3) und somit
+
+\begin{align*}
+  \frac{d\expval{\hat{p}_x}}{dt} &= - \expval{\frac{dV(x)}{dx}} = 0
+  \\
+  \frac{d\expval{x}}{dt} &= \frac{1}{m}\expval{\hat{p}_x} =  0
+\end{align*}
+
+\paragraph{Bsp: Harmonischer Oszillator} (S5A1.c, S6A2, S7A1) \\
+$\varphi_{\textcolor{red}{0}} = A\exp{-bx^2}$ und $V(x) = \frac{1}{2}kx^2$.
+
+Wir wissen $\expval{\hat{x}} = 0$ und $\expval{\hat{p}_x} = 0$ (Serie 4) und 
+somit
+
+\begin{align*}
+  \frac{d\expval{\hat{p}_x}}{dt} &= - \expval{\frac{dV(x)}{dx}}
+    = k\expval{\hat{x}} = 0
+  \\
+  \frac{d\expval{x}}{dt} &= \frac{1}{m}\expval{\hat{p}_x} =  0
+\end{align*}
+
+\warning Oft benutzt als erste Näherung zur Beschreibung der
+Schwingungsbewegung von Molekülen.
+
+
+\mysection{Unbestimmtheitsrelationen}
+\mysubsection{Ort-Impuls}
+\[
+  \Delta x \Delta p_x \geq \frac{\hbar}{2}
+\]
+
+mit
+
+$\Delta x := \sqrt{\expval{\hat{x}^2} - \expval{\hat{x}}^2}$
+
+$\Delta p_x := \sqrt{\expval{\hat{p_x}^2} - \expval{\hat{p_x}}^2}$
+
+\mysection{Theoreme}
+
+\mysection{Postulate}
+
+\mysection{Akzeptable Wellenfunktion}
+
+\mysection{Tunnel Effekt}
+
+
+\mysection{Term Symbole}
+
+\mysection{Variationsprinzip} (S4A3) (§3.13) \\
+Der Erwartungswert von $\hat{H}$ bezüglich einer bel. Funktion $\Psi$ erfüllt
+
+$\Psi$ normiert:
+\[
+  \bra{\Psi}\hat{H}\ket{\Psi} \geq E_1
+\]
+
+$\Psi$ nicht normiert:
+\[
+  \frac{\bra{\Psi}\hat{H}\ket{\Psi}}{\bra{\Psi}\ket{\Psi}} \geq E_1
+\]
+
+\warning Die LHS obiger Gleichungen ist somit eine obere Grenze für $E_1$. \\
+\warning Beim "normalen" Variationsprinzip stopfen wir irgendeine Testfunktion
+$\Psi$ in die LHS. Z.B. muss diese Testfunktion garkeinen Parameter haben.
+
+\mysubsection{Ritzsche Variationsverfahren} (Testfunktion MIT Parameter) \\
+Die Testfunktion $\Psi$ hat immer einen oder mehrere Parameter. Wir können dann
+die LHS minimieren durch:
+
+$\Psi$ normiert:
+\[
+  \frac{d}{da}\bra{\Psi}\hat{H}\ket{\Psi} \geq E_1
+\]
+
+$\Psi$ nicht normiert:
+\[
+  \frac{d}{da}\frac{\bra{\Psi}\hat{H}\ket{\Psi}}{\bra{\Psi}\ket{\Psi}} \geq E_1
+\]
+
+wobei $a$ unser Parameter ist. 
+
+\mysection{Störungsrechnung}
+
+\newpage
+
+\mysection{Beispiele:}
+\mysubsection{Teilchen im 1D Kasten} ($\hat{H}\varphi_n = E_n \varphi_n$) (S4A2.a)
+\warning Beschreibt alle möglichen Zustände aufs mal! Fixieren von $n$
+fixiert Zustand!
+
+\begin{align*}
+  \hat{H} &= \frac{-\hbar^2}{2m}\frac{d^2}{dx^2} + V(x)
+  \\
+  V(x) &= \begin{cases}0 &, 0 < x < L \\ \infty &, \text{else}\end{cases}
+  \\
+  \varphi_n(x) &=
+    \begin{cases}
+      \sqrt{\frac{2}{L}}\sin{\frac{n\pi x}{L}} & 0 < x < L \\
+      0 & \text{else}
+    \end{cases}
+  \\
+  E_n &= \frac{n^2 h^2}{8 m L^2}
+  \\
+  n &= \textcolor{red}{1},2,3,4, \dots 
+\end{align*}
+
+\includegraphics[width=0.5\textwidth]{1D\_kasten.jpg}
+
+\warning Endliche Nullpunktsenergie: 
+$E_{\textcolor{red}{1}} = \frac{h^2}{8mL^2} > 0$
+
+\begin{itemize}
+  \item $\expval{x} = \frac{L}{2}$
+  \item $\expval{x^2} = \big(\frac{1}{3} - \frac{1}{2n^2\pi^2}\big)L^2$
+  \item $\expval{p_x} = 0$
+  \item $\expval{p_x^2} = \big(\frac{n\pi\hbar}{L}\big)^2$
+\end{itemize}
+
+\mysubsection{Harmonischer Oszillator} (S4A2.b, S6A2, §4.4) \\
+
+\warning Molekülschwingung hat eigenen Teil in der Zsmfg!
+
+\begin{align*}
+  \hat{H} &= -\frac{\hbar^2}{2\textcolor{red}{m}}\frac{d^2}{dx^2} + 
+  \underbrace{\frac{1}{2}\textcolor{green}{k}x^2}_{\text{V(x)}}
+  \\
+  \alpha &= \sqrt{\frac{mk}{\hbar^2}} = \frac{2\pi\textcolor{blue}{\nu} m}{\hbar} = 
+            \frac{\omega m}{\hbar}
+  \\
+  \textcolor{blue}{\nu} &= \textcolor{blue}{\nu}_{\text{osz}} 
+      = \frac{1}{2\pi}\sqrt{\frac{\textcolor{green}{k}}{m}}
+  \\
+  E_v &= h\textcolor{blue}{\nu}(v+\frac{1}{2}) \quad \text{für QZ} \quad 
+  v = 0, 1, 2, \dots
+  \\
+  \Psi_v(x) &= (\alpha/\pi)^{1/4}(2^v v!)^{-1/2}H_v(\sqrt{\alpha} x)
+              e^{-\alpha x^2 / 2}
+\end{align*}
+
+
+TODO: Warte auf Antwort per E-Mail bzgl. eventuelliger Fehler in Eig. func..
+
+\warning Siehe Tabelle 4.1 (S. 4-13) für explizite $\Psi_v$. 
+
+\paragraph{\underline{$\mathbf{v=0}$:}}
+
+\begin{align*}
+  \Psi_1(x) &= \big(\frac{\alpha}{\pi}\big)^{1/4} \exp{-\frac{\alpha x^2}{2}}
+  \\
+  E_0 &= \frac{1}{2} h \textcolor{blue}{\nu}
+\end{align*}
+
+\paragraph{\underline{$\mathbf{v=1}$:}}
+
+\begin{align*}
+  \Psi_1(x) &= \big(\frac{4\alpha^3}{\pi}\big)^{1/4} x 
+  \exp{-\frac{\alpha x^2}{2}}
+  \\
+  E_1 &= \frac{3}{2}h \textcolor{blue}{\nu}
+\end{align*}
+
+\paragraph{\underline{$\mathbf{v=2}$:}}
+
+\begin{align*}
+  \Psi_2(x) &= \big(\frac{\alpha}{4\pi}\big)^{1/4} (1 - 2\alpha x^2) 
+  \exp{-\frac{\alpha x^2}{2}}
+  \\
+  E_2 &= \frac{5}{2}h \textcolor{blue}{\nu}
+\end{align*}
+
+\includegraphics[width=0.5\textwidth]{harm\_osz.jpg}
+
+Graphische Darstellung der Energieniveaus $E_v$ und der Wellenfunktion
+$\Psi_v(x)$ (\textbf{schwarze Kurven}) respektive deren Betragsquadrate
+$|\Psi_v(x)|^2$ (\textbf{graue Kurven}) eines eindimensionalen harmonischen
+Oszillators. Zu beachte ist, dass auch im energetisch verbotenen Bereich
+(\textbf{grau markiert}), in denen die totale Energie $E_v$ kleiner ist als die
+potentielle Energie $V(x)$, eine von null verschiedene 
+Aufenthaltswahrscheinlichkeit existiert.
+
+
+\mysubsection{Schwingung 2-Atomiger Moleküle}
+
+TODO: Machen. Siehe PVK Skript, normales Skript. Bis jetzt kam noch keine
+direkte Aufgabe in den Serien ausser S7A1, jedoch nur halbpatzig.
+
+
+
+\section{Operatoren}
+
+
+\section{Kommutatoren}
+\warning Für Eigenschaften von Kommutatoren, siehe Serie 3, Aufgabe 2.
+
+\begin{align*}
+  [\hat{x}, \hat{p}_x] &= -i\hbar
+\end{align*}
+
+
+\section{Trigonometrische Identitäten}
+$\sin \alpha \sin \beta
+  = \frac{1}{2}[\cos(\alpha - \beta) - \cos(\alpha + \beta)]$
+
+$\sin \alpha \cos \beta
+  = \frac{1}{2}[\sin(\alpha - \beta) - \sin(\alpha + \beta)]$
+
+\end{multicols*}
+\end{document}
